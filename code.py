@@ -1,6 +1,6 @@
 #!/bin/env python3
 import argparse
-
+import time
 def fibonachi_generator():
     """Generator for fibonachi sequence
     """
@@ -19,5 +19,8 @@ if __name__ == "__main__":
     for i, f in enumerate(fibonachi):
         if i > args.N:
             break
+        time_s = time.perf_counter()
         print(f"{i}: {f}")
+        time_e = time.perf_counter()
+        print(f'Calc time = {time_e - time_s}')
 
