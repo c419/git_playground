@@ -1,4 +1,6 @@
 #!/bin/env python3
+"""Prints fibonachi sequence of given length and show computation time
+"""
 import argparse
 import time
 import functools
