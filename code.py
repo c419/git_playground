@@ -14,14 +14,15 @@ def timer_decorator(func):
     return wrapper
 
 @timer_decorator
-def print_fibonachi(n):
+def fibonachi_sequence(n):
     """print n fibonachi numbers"""
     fibonachi = fibonachi_generator()
+    fibonachi_sequence = []
     for i, f in enumerate(fibonachi):
         if i > args.N:
             break
-        print(f"{i}: {f}")
-
+        fibonachi_sequence.append(f)
+    return fibonachi_sequence
     
 
 def fibonachi_generator():
@@ -40,4 +41,5 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Prints given amount of fibonachi sequence")
     parser.add_argument('N', nargs='?', default='10', type=int, help="Number of fibonachi numbers to display, default is 10")
     args = parser.parse_args()
-    print_fibonachi(args.N)
+    f_seq = fibonachi_sequence(args.N)
+    [print(f'{i}: {f}') for i, f in enumerate(f_seq)]
