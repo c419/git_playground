@@ -2,6 +2,23 @@
 import argparse
 import time
 import functools
+import itertools
+
+class bcolors:
+    COLOR_RED   = "\033[1;31m"  
+    COLOR_BLUE  = "\033[1;34m"
+    COLOR_CYAN  = "\033[1;36m"
+    COLOR_GREEN = "\033[0;32m"
+    ENDC = '\033[0m'
+
+
+def next_color(color_cls=bcolors):
+	colors = [attr for attr in dir(color_cls) if attr.startswith('COLOR')]
+	for color in itertools.cycle(colors):
+		yield getattr(color_cls, color)
+
+def reset_color(colors_cls=bcolors):
+	return colors_cls.ENDC
 
 def timer_decorator(func):
     @functools.wraps(func)
@@ -42,4 +59,5 @@ if __name__ == "__main__":
     parser.add_argument('N', nargs='?', default='10', type=int, help="Number of fibonachi numbers to display, default is 10")
     args = parser.parse_args()
     f_seq = fibonachi_sequence(args.N)
-    [print(f'{i}: {f}') for i, f in enumerate(f_seq)]
+    color = next_color()
+    [print(f'{i}: {next(color)}{f}{reset_color()}') for i, f in enumerate(f_seq)]
